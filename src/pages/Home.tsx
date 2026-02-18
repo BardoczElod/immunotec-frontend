@@ -88,7 +88,11 @@ const Home: React.FC = () => {
             >
               <img
                 className="product-img"
-                src={p.img.startsWith('http') ? p.img : `http://localhost:4000${p.img}`}
+                src={p.img.startsWith('http')
+                  ? p.img
+                  : `${process.env.NODE_ENV === 'production'
+                      ? 'https://backend-1bq0.onrender.com'
+                      : 'http://localhost:4000'}${p.img}`}
                 alt={p.name}
                 style={{ width: 320, height: 220, objectFit: 'contain', marginBottom: 24, maxWidth: '100%' }}
               />
