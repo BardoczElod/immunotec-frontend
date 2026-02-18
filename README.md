@@ -2,6 +2,21 @@
 
 This is the frontend (React) service for Immunotec.
 
+## Development with Docker Compose (Hot Reload)
+
+To run the project in development mode with Docker and hot reload:
+
+1. Make sure Docker is installed and running.
+2. Use the provided docker-compose file:
+
+```
+docker-compose up
+```
+
+- Edit files in `src/` or `public/` and changes will be reflected automatically.
+- The development server will be available at http://localhost:3000.
+- Environment variables can be set in your shell or in a `.env` file.
+
 ## Local Development
 
 1. Install dependencies:

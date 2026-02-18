@@ -14,6 +14,4 @@ ENV NODE_OPTIONS=--openssl-legacy-provider
 EXPOSE 3000
 RUN rm -rf node_modules && npm install -g ajv@6.12.6 && npm install --legacy-peer-deps
 
-RUN npm run build
-
-CMD ["npx", "serve", "-s", "build", "-l", "3000"]
+CMD ["npm", "start"]
