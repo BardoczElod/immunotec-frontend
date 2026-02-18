@@ -30,7 +30,9 @@ const Admin: React.FC = () => {
   const [addMsg, setAddMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:4000/products')
+    let apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+    if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+    fetch(`${apiUrl}/products`)
       .then(res => res.json())
       .then(data => {
         setProducts(data);
@@ -50,7 +52,9 @@ const Admin: React.FC = () => {
     setSaving(true);
     setSaveMsg(null);
     try {
-      const res = await fetch('http://localhost:4000/products', {
+      let apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+      if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+      const res = await fetch(`${apiUrl}/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +75,9 @@ const Admin: React.FC = () => {
     formData.append('image', file);
     formData.append('description', products[idx].description || '');
     try {
-      const res = await fetch('http://localhost:4000/upload', {
+      let apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+      if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+      const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         body: formData
       });
@@ -91,7 +97,9 @@ const Admin: React.FC = () => {
     formData.append('image', file);
     formData.append('description', newProduct.description || '');
     try {
-      const res = await fetch('http://localhost:4000/upload', {
+      let apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+      if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+      const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         body: formData
       });
@@ -168,7 +176,9 @@ const Admin: React.FC = () => {
             setAdding(true);
             setAddMsg(null);
             try {
-              const res = await fetch('http://localhost:4000/products/add', {
+              let apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+              if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+              const res = await fetch(`${apiUrl}/products/add`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -180,7 +190,7 @@ const Admin: React.FC = () => {
               setAddMsg('Product added!');
               setNewProduct({ name: '', price: 0, description: '', img: '', link: '' });
               // Optionally reload products
-              fetch('http://localhost:4000/products')
+              fetch(`${apiUrl}/products`)
                 .then(res => res.json())
                 .then(data => setProducts(data));
             } catch {
@@ -203,7 +213,9 @@ const Admin: React.FC = () => {
               onClick={async () => {
                 if (!window.confirm('Are you sure you want to remove this product?')) return;
                 try {
-                  const res = await fetch(`http://localhost:4000/products/${idx}`, {
+                  let apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+                  if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+                  const res = await fetch(`${apiUrl}/products/${idx}`, {
                     method: 'DELETE',
                     headers: {
                       'Authorization': `Bearer ${token}`
@@ -245,7 +257,9 @@ const Admin: React.FC = () => {
                 const updatedProducts = [...products];
                 // Save only the current product
                 updatedProducts[idx] = p;
-                const res = await fetch('http://localhost:4000/products', {
+                let apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+                if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+                const res = await fetch(`${apiUrl}/products`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
