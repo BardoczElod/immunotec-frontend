@@ -15,7 +15,8 @@ const Home: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+    let apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+    if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
     fetch(`${apiUrl}/products`)
       .then(res => res.json())
       .then(data => {
@@ -93,12 +94,14 @@ const Home: React.FC = () => {
               />
               <h3 className="product-title" style={{ fontWeight: 700, marginBottom: 12, fontSize: 28 }}>{p.name}</h3>
               <p className="product-desc" style={{ fontSize: 18, color: '#222', marginBottom: 20, textAlign: 'center' }}>{p.description}</p>
+              {/*
               <div className="product-price" style={{ fontWeight: 700, marginBottom: 12, fontSize: 20 }}>
                 USD ${p.price.toFixed(2)} <span style={{ fontWeight: 400, fontSize: 14 }}>Retail</span>
               </div>
               <label style={{ marginBottom: 12, fontSize: 16 }}>
                 <input type="checkbox" style={{ marginRight: 8 }} /> Subscribe & save 25%
               </label>
+              */}
               <button
                 className="product-btn"
                 style={{ width: '100%', padding: '16px 0', borderRadius: 10, border: '1.5px solid #222', background: '#fff', fontWeight: 700, fontSize: 20, cursor: 'pointer', marginTop: 8 }}
